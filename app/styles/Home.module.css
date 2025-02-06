@@ -1,0 +1,22 @@
+.title {
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;    
+    font-size: 3rem;
+    font-weight: 700;
+    color: #556B2F; /* Example color */
+    text-align: center; /* Optional: Center alignment */
+    
+}
+
+.description {
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;   
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff; /* Example color */
+    
+    text-align: center; /* Optional: Center alignment */
+}
+
+.background {
+    background: linear-gradient(to bottom, rgb(0, 0, 0) 50%, white 50%);
+    height: 100vh;
+}
