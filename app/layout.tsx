@@ -1,6 +1,5 @@
-// src/app/layout.tsx
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap globally// Import your custom styles
-import styles from "./styles/Home.module.css";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap globally
+import Navbar from "../components/Navbar"; // Import the Navbar component
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,57 +12,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Finance Tracker</title> {/* Update title */}
-        {/* Add favicon */}
+        <title>Finance Tracker</title>
         <link rel="icon" href="/favicon.ico" />
-        {/* Bootstrap icons */}
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
           rel="stylesheet"
         />
       </head>
       <body className="d-flex flex-column h-100">
-        <main className="flex-shrink-0">
-          {/* Navigation */}
-          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container px-5">
-              <a className="navbar-brand" href="/">
-                Finance Tracker
-              </a>
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-              >
-                <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                  <li className="nav-item">
-                    <a className="nav-link" href="/">
-                      Home
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/dashboard">
-                      Dashboard
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+        <Navbar />
 
-          {/* Page content */}
-          <div>{children}</div>
-        </main>
+        {/* Page Content */}
+        <main className="flex-shrink-0">{children}</main>
 
         {/* Footer */}
         <footer className="bg-dark py-4 mt-auto">
@@ -90,9 +50,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </footer>
-
-        {/* Bootstrap JS */}
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
       </body>
     </html>
   );
