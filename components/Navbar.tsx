@@ -1,6 +1,10 @@
+"use client";
+import { UserButton, useUser } from "@clerk/nextjs";
+import React from "react";
 import Link from "next/link";
 
 export default function Navbar() {
+  const { user, isLoaded } = useUser();
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container px-5">
@@ -26,9 +30,14 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/dashboard" className="nav-link">
-                Dashboard
-              </Link>
+              {isLoaded && user && (
+                <>
+                  <Link href="/dashboard" className="nav-link">
+                    Dashboard
+                  </Link>
+                  <UserButton afterSwitchSessionUrl="/" />
+                </>
+              )}
             </li>
             <li className="nav-item">
               <Link href="/login" className="nav-link">
