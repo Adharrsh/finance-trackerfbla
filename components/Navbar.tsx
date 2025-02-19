@@ -1,10 +1,11 @@
 "use client";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, SignInButton, useUser } from "@clerk/nextjs";
 import React from "react";
 import Link from "next/link";
 
 export default function Navbar() {
   const { user, isLoaded } = useUser();
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container px-5">
@@ -29,26 +30,28 @@ export default function Navbar() {
                 Home
               </Link>
             </li>
-            <li className="nav-item">
-              {isLoaded && user && (
-                <>
+            {isLoaded && user ? (
+              <>
+                <li className="nav-item">
                   <Link href="/dashboard" className="nav-link">
                     Dashboard
                   </Link>
+                </li>
+                <li className="nav-item">
                   <UserButton afterSwitchSessionUrl="/" />
-                </>
-              )}
-            </li>
-            <li className="nav-item">
-              <Link href="/login" className="nav-link">
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/signup" className="nav-link">
-                Signup
-              </Link>
-            </li>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <SignInButton>
+                    <span className="nav-link" style={{ cursor: "pointer" }}>
+                      Sign In
+                    </span>
+                  </SignInButton>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

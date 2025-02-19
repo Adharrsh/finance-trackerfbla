@@ -1,13 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap globally
 import Navbar from "../components/Navbar"; // Import the Navbar component
-
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 export default function RootLayout({
@@ -35,12 +28,6 @@ export default function RootLayout({
         </head>
         <body className="d-flex flex-column h-100">
           <Navbar />
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
           {/* Page Content */}
           <main className="flex-shrink-0">{children}</main>
           {/* Footer */}
