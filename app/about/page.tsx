@@ -1,7 +1,8 @@
+import About from "@/components/About";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import React from "react";
-import About from "About";
-import Footer from "components/Footer";
-import Navbar from "components/Navbar";
+
 
 const AboutPage: React.FC = () => {
     return (

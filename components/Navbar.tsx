@@ -40,6 +40,11 @@ export default function Navbar() {
                 Signup
               </Link>
             </li>
+            <li className="nav-item">
+              <Link href="/about" className="nav-link">
+                About
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
