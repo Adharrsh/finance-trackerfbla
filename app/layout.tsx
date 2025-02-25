@@ -2,6 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap globally
 import Navbar from "../components/Navbar"; // Import the Navbar component
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
+import Sidebar from "../components/Sidebar";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 export default function RootLayout({
   children,

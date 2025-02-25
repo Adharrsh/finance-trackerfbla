@@ -1,0 +1,45 @@
+/* Sidebar.module.css */
+.hamburger {
+  font-size: 30px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Hide sidebar initially */
+  width: 250px;
+  height: 100%;
+  background: #111;
+  color: white;
+  padding-top: 60px;
+  transition: left 0.3s ease;
+}
+
+.sidebar.open {
+  left: 0; /* Show sidebar when open */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Make the entire box clickable */
+.sidebar li {
+  padding: 15px 20px;
+}
+
+/* Ensure the whole box linked */
+.link {
+  display: block; /* Makes the link fill the entire li */
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Hover effect on the whole box */
+.sidebar li:hover {
+  background: #333; /* Background change on hover */
+  cursor: pointer;
+}
