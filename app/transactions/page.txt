@@ -4,39 +4,18 @@ import { useState } from "react";
 import styles from "./AddTransactionForm.module.css";
 
 const AddTransactionForm = ({ onSave }: { onSave: (data: any) => void }) => {
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<string>(""); // Keep it as a string to start blank
   const [category, setCategory] = useState<string>("");
   const [date, setDate] = useState<string>("");
-  const [type, setType] = useState<"Deposit" | "Withdrawal">("Deposit");
+  const [type, setType] = useState<"income" | "expense">("income");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!amount || !category || !date) return;
-
-    const transaction = { amount, category, date, type };
-    console.log("peepee" + JSON.stringify(transaction));
-    try {
-      console.log("before calling api");
-      const response = await fetch("http://localhost:3012/api/transactions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(transaction),
-      });
-      console.log("after calling api");
-      console.log(response);
-      if (response.ok) {
-        console.log("Transaction saved successfully");
-        setAmount(0);
-        setCategory("");
-        setDate("");
-      } else {
-        console.error("Error saving transaction");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    if (!amount || !category || !date) return; // Ensure no empty submissions
+    onSave({ amount: parseFloat(amount), category, date, type }); // Convert amount to a number
+    setAmount("");
+    setCategory("");
+    setDate("");
   };
 
   return (
@@ -47,7 +26,7 @@ const AddTransactionForm = ({ onSave }: { onSave: (data: any) => void }) => {
         type="number"
         placeholder="Amount"
         value={amount}
-        onChange={(e) => setAmount(parseFloat(e.target.value))}
+        onChange={(e) => setAmount(e.target.value)} // Keep as string for blank input
         className={styles.input}
       />
 

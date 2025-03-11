@@ -45,9 +45,7 @@ export default function Navbar() {
               <>
                 <li className="nav-item">
                   <SignInButton>
-                    <span className="nav-link" style={{ cursor: "pointer" }}>
-                      Sign In
-                    </span>
+                    <button className="btn btn-primary">Sign In</button>
                   </SignInButton>
                 </li>
               </>
