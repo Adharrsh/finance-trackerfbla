@@ -39,24 +39,6 @@ const Sidebar = () => {
           </li>
           <li>
             <Link
-              href="/profile"
-              className={styles.link}
-              onClick={toggleSidebar}
-            >
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/messages"
-              className={styles.link}
-              onClick={toggleSidebar}
-            >
-              Messages
-            </Link>
-          </li>
-          <li>
-            <Link
               href="/reports"
               className={styles.link}
               onClick={toggleSidebar}

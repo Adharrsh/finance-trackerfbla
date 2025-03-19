@@ -19,27 +19,16 @@ export default function RootLayout({
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
-          <meta name="description" content="" />
-          <meta name="author" content="" />
           <title>Finance Tracker</title>
-          <link rel="icon" href="/favicon.ico" />
-          <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-            rel="stylesheet"
-          />
         </head>
-        <body className="d-flex flex-column h-100">
-          <div className="d-flex">
-            {/* Sidebar */}
-            <Sidebar />
-
-            {/* Main Content */}
-            <div className="d-flex flex-column flex-grow-1">
-              <Navbar />
+        <body className="d-flex flex-column min-vh-100">
+          <Navbar />
+          <div className="container flex-grow-1">
+            <div className="row">
+              <Sidebar />
               <main className="flex-shrink-0">{children}</main>
             </div>
           </div>
-
           {/* Footer */}
           <footer className="bg-dark py-4 mt-auto">
             <div className="container px-5">

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import styles from "./GetReport.module.css";
+import Sidebar from "../../components/Sidebar";
 
 const Page = () => {
   const [transactions, setTransactions] = useState<
@@ -89,56 +90,61 @@ const Page = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <h2 className={styles.heading}>Spending Report</h2>
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+      <main style={{ marginLeft: "250px", padding: "20px", width: "100%" }}>
+        <div className={styles.container}>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <h2 className={styles.heading}>Spending Report</h2>
+            <br></br>
+            <input
+              type="date"
+              value={startdate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className={styles.input}
+            />
+            <input
+              type="date"
+              value={enddate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className={styles.input}
+            />
 
-        <input
-          type="date"
-          value={startdate}
-          onChange={(e) => setStartDate(e.target.value)}
-          className={styles.input}
-        />
-        <input
-          type="date"
-          value={enddate}
-          onChange={(e) => setEndDate(e.target.value)}
-          className={styles.input}
-        />
+            <button type="submit" className={styles.button}>
+              Fetch Report
+            </button>
+          </form>
 
-        <button type="submit" className={styles.button}>
-          Fetch Report
-        </button>
-      </form>
-
-      <div className={styles.recentTrxContainer}>
-        <h2>Transaction Report</h2>
-        {transactions.length > 0 ? (
-          <div>
-            <table className={styles.transactionsTable}>
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Amount</th>
-                  <th>Transaction Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transactions.map((transaction, index) => (
-                  <tr key={index}>
-                    <td>{transaction.category}</td>
-                    <td>${Number(transaction.amount).toFixed(2)}</td>
-                    <td>{transaction.transactiontype}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <button onClick={downloadCsv}>Download CSV</button>
+          <div className={styles.recentTrxContainer}>
+            <h2>Transaction Report</h2>
+            {transactions.length > 0 ? (
+              <div>
+                <table className={styles.transactionsTable}>
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Amount</th>
+                      <th>Transaction Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {transactions.map((transaction, index) => (
+                      <tr key={index}>
+                        <td>{transaction.category}</td>
+                        <td>${Number(transaction.amount).toFixed(2)}</td>
+                        <td>{transaction.transactiontype}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <button onClick={downloadCsv}>Download CSV</button>
+              </div>
+            ) : (
+              <p>No transactions found for the selected period.</p>
+            )}
           </div>
-        ) : (
-          <p>No transactions found for the selected period.</p>
-        )}
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

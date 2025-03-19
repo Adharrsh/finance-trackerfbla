@@ -46,7 +46,7 @@
   
   .recentTrxContainer {
     position: absolute;
-    top: 300px;
+    top: 100px;
     left: 1050px;
     padding: 20px;
     background-color: var(--secondary-bg-color);
