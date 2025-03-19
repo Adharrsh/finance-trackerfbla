@@ -1,23 +1,74 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./GetReport.module.css";
-import Sidebar from "../../components/Sidebar";
 
-const Page = () => {
+const Reports = () => {
   const [transactions, setTransactions] = useState<
-    { category: string; amount: number; transactiontype: string }[]
+    {
+      id: number;
+      category: string;
+      amount: number | string;
+      transactiontype: string;
+    }[]
   >([]);
   const [startdate, setStartDate] = useState<string>("");
   const [enddate, setEndDate] = useState<string>("");
   const [csvData, setCsvData] = useState<string>("");
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!startdate || !enddate) return;
+
+    const transactiondate = { startdate, enddate };
+    try {
+      const response = await fetch("http://localhost:3012/api/getreport", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(transactiondate),
+      });
+      if (!response.ok) {
+        throw new Error("Error fetching transactions");
+      }
+
+      const data = await response.json();
+      console.log("Fetched transactions data:", data);
+
+      if (
+        Array.isArray(data) &&
+        data.every(
+          (item) =>
+            "id" in item &&
+            "category" in item &&
+            "amount" in item &&
+            "transactiontype" in item
+        )
+      ) {
+        setTransactions(data);
+        generateCsv(data); // Call generateCsv after setting transactions
+      } else {
+        console.error("Invalid data format:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching report data:", error);
+    }
+  };
+
   const generateCsv = (
-    data: { category: string; amount: number; transactiontype: string }[]
+    data: {
+      id: number;
+      category: string;
+      amount: number | string;
+      transactiontype: string;
+    }[]
   ) => {
     const headers = ["Category", "Amount", "Transaction Type"];
     const rows = data.map((transaction) => [
       transaction.category,
-      Number(transaction.amount).toFixed(2),
+      typeof transaction.amount === "number"
+        ? transaction.amount.toFixed(2)
+        : transaction.amount,
       transaction.transactiontype,
     ]);
 
@@ -39,114 +90,90 @@ const Page = () => {
     URL.revokeObjectURL(url);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    console.log("handleSubmit");
-    console.log("Start Date:", startdate);
-    console.log("End Date:", enddate);
-
-    e.preventDefault();
-    if (!startdate || !enddate) {
-      console.error("Both start and end dates are required.");
-      return;
-    }
-
-    const transactiondate = {
-      startdate: new Date(startdate).toISOString().split("T")[0],
-      enddate: new Date(enddate).toISOString().split("T")[0],
-    };
-
+  const handleDelete = async (id: number) => {
     try {
-      console.log("Fetching report...");
-      const response = await fetch("http://localhost:3012/api/getreport", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(transactiondate),
-      });
-
+      const response = await fetch(
+        `http://localhost:3012/api/transactions/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
-        throw new Error("Error fetching transactions");
+        throw new Error("Error deleting transaction");
       }
-
-      const data = await response.json();
-      console.log("Fetched transactions data:", data);
-
-      if (
-        Array.isArray(data) &&
-        data.every(
-          (item) =>
-            "category" in item && "amount" in item && "transactiontype" in item
-        )
-      ) {
-        setTransactions(data);
-        generateCsv(data);
-      } else {
-        console.error("Invalid data format:", data);
-      }
+      setTransactions(
+        transactions.filter((transaction) => transaction.id !== id)
+      );
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error deleting transaction:", error);
     }
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <Sidebar />
-      <main style={{ marginLeft: "250px", padding: "20px", width: "100%" }}>
-        <div className={styles.container}>
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <h2 className={styles.heading}>Spending Report</h2>
-            <br></br>
-            <input
-              type="date"
-              value={startdate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className={styles.input}
-            />
-            <input
-              type="date"
-              value={enddate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className={styles.input}
-            />
-
-            <button type="submit" className={styles.button}>
-              Fetch Report
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h2 className={styles.heading}>Spending Report</h2>
+        <input
+          type="date"
+          value={startdate}
+          onChange={(e) => setStartDate(e.target.value)}
+          className={styles.input}
+        />
+        <input
+          type="date"
+          value={enddate}
+          onChange={(e) => setEndDate(e.target.value)}
+          className={styles.input}
+        />
+        <button type="submit" className={styles.button}>
+          Get Report
+        </button>
+      </form>
+      <div>
+        <h2>Transactions</h2>
+        {transactions.length > 0 ? (
+          <>
+            <table className={styles.transactionsTable}>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Transaction Type</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((transaction) => (
+                  <tr key={transaction.id}>
+                    <td>{transaction.category}</td>
+                    <td>
+                      {typeof transaction.amount === "number"
+                        ? transaction.amount.toFixed(2)
+                        : transaction.amount}
+                    </td>
+                    <td>{transaction.transactiontype}</td>
+                    <td>
+                      <button
+                        onClick={() => handleDelete(transaction.id)}
+                        className={styles.deleteButton}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button onClick={downloadCsv} className={styles.button}>
+              Download CSV
             </button>
-          </form>
-
-          <div className={styles.recentTrxContainer}>
-            <h2>Transaction Report</h2>
-            {transactions.length > 0 ? (
-              <div>
-                <table className={styles.transactionsTable}>
-                  <thead>
-                    <tr>
-                      <th>Category</th>
-                      <th>Amount</th>
-                      <th>Transaction Type</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {transactions.map((transaction, index) => (
-                      <tr key={index}>
-                        <td>{transaction.category}</td>
-                        <td>${Number(transaction.amount).toFixed(2)}</td>
-                        <td>{transaction.transactiontype}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <button onClick={downloadCsv}>Download CSV</button>
-              </div>
-            ) : (
-              <p>No transactions found for the selected period.</p>
-            )}
-          </div>
-        </div>
-      </main>
+          </>
+        ) : (
+          <p>No transactions found for the selected period.</p>
+        )}
+      </div>
     </div>
   );
 };
 
-export default Page;
+export default Reports;

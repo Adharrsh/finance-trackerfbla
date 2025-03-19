@@ -84,6 +84,26 @@ app.post("/api/getreport", (req, res) => {
     });
   });
 
+  app.delete("/api/transactions/:id", (req, res) => {
+    const { id } = req.params;
+    console.log("Deleting transaction with ID:", id);
+  
+    const query = `DELETE FROM transactions WHERE id = ?`;
+    db.query(query, [id], (err, results) => {
+      if (err) {
+        console.error("Error deleting transaction:", err);
+        res.status(500).send("Error deleting transaction");
+        return;
+      }
+      if (results.affectedRows === 0) {
+        res.status(404).send("Transaction not found");
+        return;
+      }
+      console.log("Transaction deleted:", results);
+      res.status(200).send("Transaction deleted");
+    });
+  });
+
 app.post("/api/transactions", (req, res) => {
   console.log("Request body:", JSON.stringify(req.body)); 
   const { amount, category, date, type } = req.body;
