@@ -16,6 +16,7 @@ export default function Header() {
                 control of your finances. Explore our tools, videos, and
                 resources to help you spend smartly!
               </p>
+
               <div className="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                 <a
                   className="btn btn-primary btn-lg px-4 me-sm-3"
@@ -30,8 +31,11 @@ export default function Header() {
             </div>
           </div>
           <div className="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-            <style></style>
-            <body></body>
+            <img
+              className="img-fluid rounded-3 my-5"
+              src="https://www.fbla.org/media/2022/08/cropped-cropped-FBLA_HorizontalLogo-600x464-1-1.png"
+              alt="FBLA Logo"
+            />
           </div>
         </div>
       </div>
