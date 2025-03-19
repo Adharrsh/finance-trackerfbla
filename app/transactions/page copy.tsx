@@ -8,8 +8,6 @@ const AddTransactionForm = ({ onSave }: { onSave: (data: any) => void }) => {
   const [category, setCategory] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [type, setType] = useState<"Deposit" | "Withdrawal">("Deposit");
-  const [customCategory, setCustomCategory] = useState<string>("");
-  const [categories, setCategories] = useState<string[]>([]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,15 +39,45 @@ const AddTransactionForm = ({ onSave }: { onSave: (data: any) => void }) => {
     }
   };
 
-  const handleAddCategory = () => {
-    if (customCategory && !categories.includes(customCategory)) {
-      setCategories([...categories, customCategory]);
-      setCustomCategory("");
+  const [newcategory, setNewCategory] = useState<string>("");
+  const handleAddCategory = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!category) return;
+
+    try {
+      const response = await fetch("http://localhost:3012/api/categories", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ category }),
+      });
+
+      if (response.ok) {
+        console.log("Categories saved successfully");
+        setNewCategory("");
+      } else {
+        console.error("Error adding category");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
   return (
     <div className={styles.container}>
+      <form onSubmit={handleAddCategory} className={styles.form}>
+        <input
+          type="text"
+          placeholder="New Category"
+          value={newcategory}
+          onChange={(e) => setNewCategory(e.target.value)}
+          className={styles.input}
+        />
+        <button type="submit" className={styles.button}>
+          Add Category
+        </button>
+      </form>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2 className={styles.heading}>Add Transaction</h2>
 
@@ -61,18 +89,13 @@ const AddTransactionForm = ({ onSave }: { onSave: (data: any) => void }) => {
           className={styles.input}
         />
 
-        <select
+        <input
+          type="text"
+          placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className={styles.select}
-        >
-          <option value="">Select Category</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
+          className={styles.input}
+        />
 
         <input
           type="date"
@@ -94,27 +117,6 @@ const AddTransactionForm = ({ onSave }: { onSave: (data: any) => void }) => {
           Save Transaction
         </button>
       </form>
-
-      <div className={styles.categoryStation}>
-        <form onSubmit={handleAddCategory} className={styles.form}>
-          <h3>Set your categories here...</h3>
-          <input
-            type="text"
-            placeholder="Add Category"
-            value={customCategory}
-            onChange={(e) => setCustomCategory(e.target.value)}
-            className={styles.input}
-          />
-          <button onClick={handleAddCategory} className={styles.button}>
-            Add Category
-          </button>
-        </form>
-        <ul className={styles.categoryList}>
-          {categories.map((cat) => (
-            <li key={cat}>{cat}</li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };

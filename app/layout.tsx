@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap globally
 import Navbar from "../components/Navbar"; // Import the Navbar component
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar"; // Import the Sidebar component
 import { UserButton, useUser } from "@clerk/nextjs";
 
 export default function RootLayout({
@@ -29,9 +29,17 @@ export default function RootLayout({
           />
         </head>
         <body className="d-flex flex-column h-100">
-          <Navbar />
-          {/* Page Content */}
-          <main className="flex-shrink-0">{children}</main>
+          <div className="d-flex">
+            {/* Sidebar */}
+            <Sidebar />
+
+            {/* Main Content */}
+            <div className="d-flex flex-column flex-grow-1">
+              <Navbar />
+              <main className="flex-shrink-0">{children}</main>
+            </div>
+          </div>
+
           {/* Footer */}
           <footer className="bg-dark py-4 mt-auto">
             <div className="container px-5">

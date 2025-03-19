@@ -1,3 +1,5 @@
+import React from "react";
+
 // src/components/Header.tsx
 export default function Header() {
   return (
@@ -28,11 +30,8 @@ export default function Header() {
             </div>
           </div>
           <div className="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-            <img
-              className="img-fluid rounded-3 my-5"
-              src="https://dummyimage.com/600x400/343a40/6c757d"
-              alt="..."
-            />
+            <style></style>
+            <body></body>
           </div>
         </div>
       </div>

@@ -1,14 +1,27 @@
 /* AddTransactionForm.module.css */
-.form {
+
+.container {
+    display: flex;
+    justify-content: space-between; /* Space between transaction and category sections */
+    gap: 40px; /* Space between the two stations */
+    padding: 20px;
+    max-width: 900px;
+    margin: 40px auto; /* Center the entire container */
+  }
+  
+  .form, .categoryStation {
+    flex: 1; /* Allow both sections to grow equally */
     display: flex;
     flex-direction: column;
     gap: 15px;
     background: #111;
     padding: 20px;
     border-radius: 12px;
-    max-width: 400px;
     color: white;
-    margin: 20px auto; /* Center form */
+  }
+  
+  .form {
+    max-width: 400px; /* Keep the form narrower */
   }
   
   .heading {
@@ -43,5 +56,26 @@
   .input:focus, .select:focus {
     outline: none;
     border-color: #007bff;
+  }
+  
+  .categoryList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .categoryList li {
+    padding: 5px 0;
+    border-bottom: 1px solid #444;
+  }
+  
+  @media (max-width: 900px) {
+    .container {
+      flex-direction: column; /* Stack sections vertically on smaller screens */
+      gap: 20px;
+    }
+  
+    .form, .categoryStation {
+      max-width: 100%;
+    }
   }
   

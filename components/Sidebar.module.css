@@ -1,9 +1,15 @@
 /* Sidebar.module.css */
 .hamburger {
-  font-size: 30px;
-  cursor: pointer;
-  padding: 10px;
-}
+    font-size: 40px; /* Slightly smaller */
+    cursor: pointer;
+    padding: 10px;
+    position: fixed;
+    top: -15px;
+    left: 20px;
+    z-index: 1001; /* Keeps it above the sidebar */
+    color: white; /* Ensures visibility */
+  }
+  
 
 .sidebar {
   position: fixed;
