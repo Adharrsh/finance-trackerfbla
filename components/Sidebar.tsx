@@ -46,6 +46,11 @@ const Sidebar = () => {
               Reports
             </Link>
           </li>
+          <li>
+            <Link href="/help" className={styles.link} onClick={toggleSidebar}>
+              Help
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

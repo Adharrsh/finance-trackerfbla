@@ -14,7 +14,7 @@ const AddTransactionForm = ({ onSave }: { onSave: (data: any) => void }) => {
     if (!amount || !category || !date) return;
 
     const transaction = { amount, category, date, type };
-    console.log("peepee" + JSON.stringify(transaction));
+    console.log("transaction" + JSON.stringify(transaction));
     try {
       console.log("before calling api");
       const response = await fetch("http://localhost:3012/api/transactions", {

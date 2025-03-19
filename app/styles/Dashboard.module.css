@@ -105,3 +105,23 @@
     width: 100%; /* Ensure the container has enough width */
   height: 500px; /* Set a fixed height for the chart container */
   }
+
+  .title {
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;    
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff; /* Dark Olive Green */
+    text-align: center;
+}
+
+.description {
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;    
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #ffffff; /* White */
+    text-align: center;
+}
+
+
+
+
