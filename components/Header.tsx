@@ -12,9 +12,7 @@ export default function Header() {
                 Welcome to Spending Smartly!
               </h1>
               <p className="lead fw-normal text-white-50 mb-4">
-                Welcome to Spending Smartly, the one-stop-shop for taking
-                control of your finances. Explore our tools, videos, and
-                resources to help you spend smartly!
+              The Smart way to Track your Finances
               </p>
 
               <div className="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
