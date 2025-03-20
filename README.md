@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance Tracker FBLA
 
-## Getting Started
+Welcome to the Finance Tracker FBLA application! This app is designed to help you manage your finances efficiently and effectively.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Expense Tracking**: Record and categorize your daily expenses.
+- **Income Management**: Keep track of your income sources.
+- **Budget Planning**: Set and monitor your budget goals.
+- **Reports**: Generate detailed financial reports.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Packages and Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This application is built using the following packages and technologies:
 
-## Learn More
+- **Node.js**: JavaScript runtime for server-side development.
+- **Express.js**: Web framework for building the server.
+- **MongoDB**: NoSQL database for storing financial data.
+- **Mongoose**: ODM library for MongoDB and Node.js.
+- **React**: Front-end library for building user interfaces.
+- **Redux**: State management library for React applications.
+- **Bootstrap**: CSS framework for responsive design.
+- **Chart.js**: Library for creating charts and graphs.
 
-To learn more about Next.js, take a look at the following resources:
+## Financing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Managing your finances is crucial for achieving financial stability and growth. The Finance Tracker FBLA app provides tools to help you:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Track Expenses**: Monitor where your money is going and identify areas to cut costs.
+- **Manage Income**: Keep a record of all your income sources to understand your financial inflows.
+- **Plan Budgets**: Create and stick to a budget to ensure you are saving and spending wisely.
+- **Generate Reports**: Analyze your financial data to make informed decisions.
